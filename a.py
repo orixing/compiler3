@@ -27,7 +27,7 @@ def getsym():
         elif(token=="ELSE"):
             symbol="Else"
         else:
-            symbol=token
+            symbol="Ident("+token+")"
     elif(('0'<=char)and(char<='9')):
         while(('0'<=char)and(char<='9')):
             token=token+char
@@ -35,7 +35,7 @@ def getsym():
         tmp=file.tell()-1
         file.seek(tmp)
         num=int(token)
-        symbol=str(num)
+        symbol="Int("+str(num)+")"
     elif(char==":"):
         char=str(file.read(1))
         if(char=="="):
