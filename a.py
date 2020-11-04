@@ -96,6 +96,7 @@ if(ret != 3 and ret != -1):
     while(len(yunsuanfu)>1):
         if(fresh==True):
             print("R")
+            freash=False
         thischar='#'
         ret = compare(yunsuanfu[-1],thischar)
         if(ret == 3):
