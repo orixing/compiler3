@@ -14,6 +14,8 @@ def compare(last,this):
     if(last=='#'):
         if(this=='+' or this=='*' or this=='i' or this=='('):
             return 0
+        elif(this == "#"):
+            return 5
         else:
             return -1
     elif(last==')'):
@@ -52,7 +54,9 @@ def compare(last,this):
 
 
 
-while(line[now]!='\r'):
+while(line[now]!='\n'):
+    if(line[now]=='\r'):
+        line[now]='#'
     thischar=line[now]
     if(thischar == 'i'):
         if(lastchar == 'i'):
@@ -65,6 +69,11 @@ while(line[now]!='\r'):
             now+=1
     else:
         ret = compare(lastchar,thischar)
+        if(ret == 5):
+            if(len(yunsuanfu)!=1):
+                print("RE")
+            if(fuhao!=1):
+                print("RE")
         if(ret == 3):
             print("OE")
             break
@@ -82,6 +91,7 @@ while(line[now]!='\r'):
             now+=1
         if(ret == 0):
             print("I"+thischar)
+            yunsuanfu.append(thischar)
             lastchar == thischar
             now+=1
         if(ret == 1):
@@ -95,11 +105,6 @@ while(line[now]!='\r'):
                 lastchar = yunsuanfu.pop()
                 yunsuanfu.append(lastchar)
 
-if(ret != 3 and ret != -1):
-    if(len(yunsuanfu)!=1):
-        print("RE")
-    if(fuhao!=1):
-        print("RE")
 
 
 
