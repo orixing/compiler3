@@ -93,36 +93,40 @@ while(line[now]!='\n'):
                 fuhao-=1
                 yunsuanfu.pop()
                 print("R")
-
-if(fresh==True):
-    print("R")
-thischar='#'
-ret = compare(yunsuanfu[-1],thischar)
-print(ret)
-if(ret == 3):
-    print("OE")
-if(ret == -1):
-    print("E")
-if(fresh==True):
-    print("R")
-    fresh=False
-if(ret == 2):
-    print("R")
-    print("I)")
-    yunsuanfu.pop()
-    now+=1
-if(ret == 0):
-    print("I"+thischar)
-    yunsuanfu.append(thischar)
-    now+=1
-if(ret == 1):
-    if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
-        if(fuhao<2):
-            print("RE")
-        else:
-            fuhao-=1
-            yunsuanfu.pop()
+if(ret != 3 and ret != -1):
+    while(len(yunsuanfu)>1):
+        if(fresh==True):
             print("R")
+        thischar='#'
+        ret = compare(yunsuanfu[-1],thischar)
+        print(ret)
+        if(ret == 3):
+            print("OE")
+            break
+        if(ret == -1):
+            print("E")
+            break
+        if(fresh==True):
+            print("R")
+            fresh=False
+        if(ret == 2):
+            print("R")
+            print("I)")
+            yunsuanfu.pop()
+            now+=1
+        if(ret == 0):
+            print("I"+thischar)
+            yunsuanfu.append(thischar)
+            now+=1
+        if(ret == 1):
+            if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
+                if(fuhao<2):
+                    print("RE")
+                    break
+                else:
+                    fuhao-=1
+                    yunsuanfu.pop()
+                    print("R")
 
 
 
