@@ -54,8 +54,6 @@ def compare(last,this):
 
 
 while(line[now]!='\n'):
-    if(line[now]=='\r'):
-        line[now]='#'
     thischar=line[now]
     if(thischar == 'i'):
         if(fresh == True):
@@ -69,11 +67,6 @@ while(line[now]!='\n'):
     else:
         ret = compare(yunsuanfu[-1],thischar)
         print(ret)
-        if(ret == 5):
-            if(len(yunsuanfu)!=1):
-                print("RE")
-            if(fuhao!=1):
-                print("RE")
         if(ret == 3):
             print("OE")
             break
@@ -85,6 +78,7 @@ while(line[now]!='\n'):
             fresh=False
         if(ret == 2):
             print("R")
+            print("I)")
             yunsuanfu.pop()
             now+=1
         if(ret == 0):
@@ -100,6 +94,35 @@ while(line[now]!='\n'):
                 yunsuanfu.pop()
                 print("R")
 
+if(fresh==True):
+    print("R")
+thischar='#'
+ret = compare(yunsuanfu[-1],thischar)
+print(ret)
+if(ret == 3):
+    print("OE")
+if(ret == -1):
+    print("E")
+if(fresh==True):
+    print("R")
+    fresh=False
+if(ret == 2):
+    print("R")
+    print("I)")
+    yunsuanfu.pop()
+    now+=1
+if(ret == 0):
+    print("I"+thischar)
+    yunsuanfu.append(thischar)
+    now+=1
+if(ret == 1):
+    if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
+        if(fuhao<2):
+            print("RE")
+        else:
+            fuhao-=1
+            yunsuanfu.pop()
+            print("R")
 
 
 
