@@ -69,6 +69,7 @@ while(line[now]!='\n'):
             now+=1
     else:
         ret = compare(lastchar,thischar)
+        print(ret)
         if(ret == 5):
             if(len(yunsuanfu)!=1):
                 print("RE")
