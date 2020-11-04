@@ -61,7 +61,7 @@ while(line[now]!='\r'):
         else:
             fuhao+=1
             print("Ii")
-            fresh=true
+            fresh=True
             now+=1
     else:
         ret = compare(lastchar,thischar)
