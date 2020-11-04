@@ -4,7 +4,6 @@ file=open(sys.argv[1], mode='r+')
 line = file.readline()
 
 now=0
-lastchar='#'
 fuhao=0
 yunsuanfu=['#']
 fresh=False
@@ -59,7 +58,7 @@ while(line[now]!='\n'):
         line[now]='#'
     thischar=line[now]
     if(thischar == 'i'):
-        if(lastchar == 'i'):
+        if(fresh == True):
             print("E")
             break
         else:
@@ -68,7 +67,7 @@ while(line[now]!='\n'):
             fresh=True
             now+=1
     else:
-        ret = compare(lastchar,thischar)
+        ret = compare(yunsuanfu[-1],thischar)
         print(ret)
         if(ret == 5):
             if(len(yunsuanfu)!=1):
@@ -87,24 +86,19 @@ while(line[now]!='\n'):
         if(ret == 2):
             print("R")
             yunsuanfu.pop()
-            lastchar = yunsuanfu.pop()
-            yunsuanfu.append(lastchar)
             now+=1
         if(ret == 0):
             print("I"+thischar)
             yunsuanfu.append(thischar)
-            lastchar == thischar
             now+=1
         if(ret == 1):
-            if(lastchar == '+' or lastchar == '*'):
+            if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
                 if(fuhao<2):
                     print("RE")
                     break
                 fuhao-=1
                 yunsuanfu.pop()
                 print("R")
-                lastchar = yunsuanfu.pop()
-                yunsuanfu.append(lastchar)
 
 
 
