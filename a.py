@@ -8,7 +8,7 @@ fuhao=0
 yunsuanfu=['#']
 fresh=False
 
-
+ret=0
 def compare(last,this):
     if(last=='#'):
         if(this=='+' or this=='*' or this=='i' or this=='('):
