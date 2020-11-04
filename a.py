@@ -5,6 +5,7 @@ line = file.readline()
 
 now=0
 fuhao=0
+lastchar=1
 yunsuanfu=['#']
 fresh=False
 
@@ -65,6 +66,11 @@ while(line[now]!='\n'):
             fresh=True
             now+=1
     else:
+        if(thischar==')'):
+            if(line[now-1]=='+' or line[now-1]=='*'):
+                print("RE")
+                ret=3
+                break
         ret = compare(yunsuanfu[-1],thischar)
         if(ret == 3):
             print("OE")
@@ -78,12 +84,13 @@ while(line[now]!='\n'):
         if(ret == 2):
             print("I)")
             print("R")
-            
             yunsuanfu.pop()
+
             now+=1
         if(ret == 0):
             print("I"+thischar)
             yunsuanfu.append(thischar)
+
             now+=1
         if(ret == 1):
             if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
@@ -99,6 +106,9 @@ if(ret != 3 and ret != -1):
             print("R")
             fresh=False
         thischar='#'
+        if(line[now-1]=='+' or line[now-1]=='*'):
+            print("RE")
+            break
         ret = compare(yunsuanfu[-1],thischar)
         if(ret == 3):
             print("OE")
@@ -114,10 +124,12 @@ if(ret != 3 and ret != -1):
             print("R")
             
             yunsuanfu.pop()
+
             now+=1
         if(ret == 0):
             print("I"+thischar)
             yunsuanfu.append(thischar)
+
             now+=1
         if(ret == 1):
             if(yunsuanfu[-1] == '+' or yunsuanfu[-1] == '*'):
