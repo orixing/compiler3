@@ -1,69 +1,106 @@
 import sys
 file=open(sys.argv[1], mode='r+')
 
-def getsym():
-    char=' '
-    num=0
-    token=""
-    symbol=""
-    while((char==' ')or(char=='\n')or(char=='\t')):
-        char=str(file.read(1))
-    if(('a'<=char and char<='z')or('A'<=char and char<='Z')):
-        while((('a'<=char and char<='z')or('A'<=char and char<='Z'))or(('0'<=char)and(char<='9'))):
-            token=token+char
-            char=str(file.read(1))
-        tmp=file.tell()-1
-        file.seek(tmp)
-        if(token=="BEGIN"):
-            symbol="Begin"
-        elif(token=="END"):
-            symbol="End"
-        elif(token=="FOR"):
-            symbol="For"
-        elif(token=="IF"):
-            symbol="If"
-        elif(token=="THEN"):
-            symbol="Then"
-        elif(token=="ELSE"):
-            symbol="Else"
-        else:
-            symbol=	"Ident("+token+")"
-    elif(('0'<=char)and(char<='9')):
-        while(('0'<=char)and(char<='9')):
-            token=token+char
-            char=str(file.read(1))
-        tmp=file.tell()-1
-        file.seek(tmp)
-        num=int(token)
-        symbol="Int("+str(num)+")"
-    elif(char==":"):
-        char=str(file.read(1))
-        if(char=="="):
-            symbol="Assign"
-        else:
-            tmp=file.tell()-1
-            file.seek(tmp)
-            symbol="Colon"
-    elif(char=='+'):
-        symbol="Plus"
-    elif(char=='*'):
-        symbol="Star"
-    elif(char==','):
-        symbol="Comma"
-    elif(char=='('):
-        symbol="LParenthesis"
-    elif(char==')'):
-        symbol="RParenthesis"
-    elif(char==''):
-        symbol="EOF"
-    else:
-        symbol="Unknown"
-    return symbol
+line = file.readline()
 
-while True:
-    ans=getsym()
-    if(ans=="EOF"):
-        break
-    print(ans)
-    if(ans=="Unknown"):
-        break
+now=0
+lastchar='#'
+fuhao=0
+yunsuanfu=['#']
+fresh=False
+
+
+def compare(last,this):
+    if(last=='#'):
+        if(this=='+' or this=='*' or this=='i' or this=='('):
+            return 0
+        else:
+            return -1
+    elif(last==')'):
+        if(this=='+' or this=='*' or this==')' or this=='#'):
+            return 1
+        else:
+            return -1
+    elif(last=='('):
+        if(this=='+' or this=='*' or this=='i' or this=='('):
+            return 0
+        elif(this==')'):
+            return 2
+        else:
+            return -1
+    elif(last=='i'):
+        if(this=='+' or this=='*' or this==')' or this=='#'):
+            return 1
+        else:
+            return -1
+    elif(last=='*'):
+        if(this=='+' or this=='*' or this==')' or this=='#'):
+            return 1
+        elif(this=='i' or this=='('):
+            return 0
+        else:
+            return -1
+    elif(last=='+'):
+        if(this=='+' or this==')' or this=='#'):
+            return 1
+        elif(this=='i' or this=='(' or this=='*'):
+            return 0
+        else:
+            return -1
+    else:
+        return 3
+
+
+
+while(line[now]!='\r'):
+    thischar=line[now]
+    if(thischar == 'i'):
+        if(lastchar == 'i'):
+            print("E")
+            break
+        else:
+            fuhao+=1
+            print("Ii")
+            fresh=true
+            now+=1
+    else:
+        ret = compare(lastchar,thischar)
+        if(ret == 3):
+            print("OE")
+            break
+        if(ret == -1):
+            print("E")
+            break
+        if(fresh==True):
+            print("R")
+            fresh=False
+        if(ret == 2):
+            print("R")
+            yunsuanfu.pop()
+            lastchar = yunsuanfu.pop()
+            yunsuanfu.append(lastchar)
+            now+=1
+        if(ret == 0):
+            print("I"+thischar)
+            lastchar == thischar
+            now+=1
+        if(ret == 1):
+            if(lastchar == '+' or lastchar == '*'):
+                if(fuhao<2):
+                    print("RE")
+                    break
+                fuhao-=1
+                yunsuanfu.pop()
+                print("R")
+                lastchar = yunsuanfu.pop()
+                yunsuanfu.append(lastchar)
+
+if(ret != 3 and ret != -1):
+    if(len(yunsuanfu)!=1):
+        print("RE")
+    if(fuhao!=1):
+        print("RE")
+
+
+
+
