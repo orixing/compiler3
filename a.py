@@ -76,8 +76,9 @@ while(line[now]!='\n'):
             print("R")
             fresh=False
         if(ret == 2):
-            print("R")
             print("I)")
+            print("R")
+            
             yunsuanfu.pop()
             now+=1
         if(ret == 0):
