@@ -66,7 +66,6 @@ while(line[now]!='\n'):
             now+=1
     else:
         ret = compare(yunsuanfu[-1],thischar)
-        print(ret)
         if(ret == 3):
             print("OE")
             break
@@ -99,7 +98,6 @@ if(ret != 3 and ret != -1):
             print("R")
         thischar='#'
         ret = compare(yunsuanfu[-1],thischar)
-        print(ret)
         if(ret == 3):
             print("OE")
             break
